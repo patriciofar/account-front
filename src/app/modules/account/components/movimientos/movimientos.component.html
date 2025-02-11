@@ -1,0 +1,58 @@
+<h3 class="title">Cuentas</h3>
+
+<div class="container">
+    <input type="text" class="textbox" placeholder="Search..." placeholder="Buscar..." [(ngModel)]="buscarMovimiento" (input)="filterMovimientos()">
+    <button [routerLink]="['/clientes/nuevo']" class="button">Nuevo</button>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Numero Cuenta</th>
+                <th>Tipo</th>
+                <th>Saldo Inicial</th>
+                <th>Estado</th>
+                <th>Movimiento</th>
+                <th>Saldo Disponible</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movimiento of listaMovimientos; let i = index">
+                <td>{{ movimiento.fecha | date:'dd/MM/yyyy' }}</td>
+                <td>{{ movimiento?.cuenta?.cliente?.nombre }}</td>
+                <td>{{ movimiento?.cuenta?.numeroCuenta }}</td>
+                <td>{{ movimiento?.cuenta?.tipoCuenta }}</td>
+                <td>{{ movimiento?.cuenta?.saldoInicial }}</td>
+                <td>{{ movimiento?.cuenta?.estado }}</td>
+                <td>{{ movimiento?.valor }}</td>
+                <td>{{ movimiento?.saldo }}</td>
+                <td>
+                    <button title="Editar" (click)="showModalUpdate(movimiento)" class="button-p">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      
+                      <button title="Eliminar" (click)="showModalDelete(movimiento)" class="button-s">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                      
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- <div class="modal" *ngIf="isShowModal">
+    <div class="modal-content">
+        <label class="text-modal">¿Estás seguro de eliminar el cliente {{ selectedCliente.nombre }}?</label>
+        <hr class="separator">
+        <div class="container-options">
+            <button (click)="closeModalCliente()" class="button-s">Cancelar</button>
+            <button (click)="confirmDeleteCliente()" class="button-p">Confirmar</button>
+        </div>
+    </div>
+</div> -->

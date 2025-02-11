@@ -1,0 +1,108 @@
+<h3 class="title">Clientes</h3>
+
+<div class="container">
+    <input type="text" class="textbox" placeholder="Search..." placeholder="Buscar..." [(ngModel)]="buscarCliente" (input)="filterClientes()" >
+    <button (click)="showModalCreate()" class="button">Nuevo</button>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Contraseña</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cliente of listaClientes; let i = index">
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.contrasena }}</td>
+                <td>{{ cliente.estado }}</td>
+                <td>
+                    <button title="Editar" (click)="showModalUpdate(cliente)" class="button-p">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      
+                      <button title="Eliminar" (click)="showModalDelete(cliente)" class="button-s">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                      
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" *ngIf="isShowModal">
+    <div class="modal-content">
+        <h3 class="title">{{ title }}</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" [(ngModel)]="selectedCliente.nombre" name="nombre" required class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="genero">Género:</label>
+                    <input id="genero" [(ngModel)]="selectedCliente.genero" name="genero" required class="input-field">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="edad">Edad:</label>
+                    <input id="edad" [(ngModel)]="selectedCliente.edad" name="edad" required type="number" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="identificacion">Identificación:</label>
+                    <input id="identificacion" [(ngModel)]="selectedCliente.identificacion" name="identificacion" required class="input-field">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input id="direccion" [(ngModel)]="selectedCliente.direccion" name="direccion" required class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input id="telefono" [(ngModel)]="selectedCliente.telefono" name="telefono" required class="input-field">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contrasena">Contraseña:</label>
+                    <input id="contrasena" [(ngModel)]="selectedCliente.contrasena" name="contrasena" required type="password" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <input id="estado" [(ngModel)]="selectedCliente.estado" name="estado" type="checkbox" class="checkbox-field">
+                </div>
+            </div>
+
+            <div class="container-options">
+                <button type="button" (click)="closeModalCliente()" class="button-modal-s">Cancelar</button>
+                <button type="submit" class="button-modal-p">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal" *ngIf="isShowModalDeleted">
+    <div class="modal-content">
+        <h3 class="title">¿Estás seguro de eliminar el cliente {{ selectedCliente.nombre }}?</h3>
+        <hr class="separator">
+        <div class="container-options">
+            <button (click)="closeModalDelete()" class="button-s">Cancelar</button>
+            <button (click)="confirmDeleteCliente()" class="button-p">Confirmar</button>
+        </div>
+    </div>
+</div>

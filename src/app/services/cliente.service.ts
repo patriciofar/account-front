@@ -24,7 +24,6 @@ export class ClienteService {
     return this.http.post(environment.apiUrl + '/save-cliente', cliente).toPromise();
   }
 
-  // Actualizar un cliente
   updateCliente(cliente: any) {
     return this.http.put(environment.apiUrl + '/update-cliente/' + cliente.clienteId, cliente).toPromise();
   }

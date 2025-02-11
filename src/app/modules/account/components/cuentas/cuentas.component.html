@@ -2,7 +2,7 @@
 
 <div class="container">
     <input type="text" class="textbox" placeholder="Search..." placeholder="Buscar..." [(ngModel)]="buscarCuenta" (input)="filterCuentas()" >
-    <button [routerLink]="['/clientes/nuevo']" class="button">Nuevo</button>
+    <button (click)="showModalCreate()" class="button">Nuevo</button>
 </div>
 
 <div class="table-container">
@@ -39,14 +39,56 @@
     </table>
 </div>
 
-
-<!-- <div class="modal" *ngIf="isShowModal">
+<div class="modal" *ngIf="isShowModal">
     <div class="modal-content">
-        <label class="text-modal">¿Estás seguro de eliminar el cliente {{ selectedCliente.nombre }}?</label>
+        <h3 class="title">{{ title }}</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="numeroCuenta">Número de Cuenta:</label>
+                    <input id="numeroCuenta" [(ngModel)]="selectedCuenta.numeroCuenta" name="numeroCuenta" required class="input-field">        
+                </div>
+                <div class="form-group">
+                    <label for="tipoCuenta">Tipo de Cuenta:</label>
+                    <select id="tipoCuenta" [(ngModel)]="selectedCuenta.tipoCuenta" name="tipoCuenta" required class="input-field">
+                        <option value="Ahorros">Ahorros</option>
+                        <option value="Corriente">Corriente</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="saldoInicial">Saldo Inicial:</label>
+                    <input id="saldoInicial" [(ngModel)]="selectedCuenta.saldoInicial" name="saldoInicial" required type="number" class="input-field">        
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <input id="estado" [(ngModel)]="selectedCuenta.estado" name="estado" type="checkbox" class="checkbox-field">
+                </div>
+            </div>
+            
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" [(ngModel)]="selectedCliente" name="cliente" required class="input-field">
+            <option *ngFor="let cliente of listaClientes" [ngValue]="cliente">{{ cliente.nombre }}</option>
+            </select>
+
+            <div class="container-options">
+                <button type="button" (click)="closeModalCuenta()" class="button-s">Cancelar</button>
+                <button type="submit" class="button-p">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal" *ngIf="isShowModalDeleted">
+    <div class="modal-content">
+        <h3 class="title">¿Estás seguro de eliminar la cuenta {{ selectedCuenta.numeroCuenta }}?</h3>
         <hr class="separator">
         <div class="container-options">
-            <button (click)="closeModalCliente()" class="button-s">Cancelar</button>
-            <button (click)="confirmDeleteCliente()" class="button-p">Confirmar</button>
+            <button (click)="closeModalDelete()" class="button-s">Cancelar</button>
+            <button (click)="confirmDeleteCuenta()" class="button-p">Confirmar</button>
         </div>
     </div>
-</div> -->
+</div>

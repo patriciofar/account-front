@@ -2,7 +2,7 @@
 
 <div class="container">
     <input type="text" class="textbox" placeholder="Search..." placeholder="Buscar..." [(ngModel)]="buscarMovimiento" (input)="filterMovimientos()">
-    <button [routerLink]="['/clientes/nuevo']" class="button">Nuevo</button>
+    <button (click)="showModalCreate()"  class="button">Nuevo</button>
 </div>
 
 <div class="table-container">
@@ -46,13 +46,63 @@
 </div>
 
 
-<!-- <div class="modal" *ngIf="isShowModal">
+<div class="modal" *ngIf="isShowModal">
     <div class="modal-content">
-        <label class="text-modal">¿Estás seguro de eliminar el cliente {{ selectedCliente.nombre }}?</label>
+        <h3 class="title">{{ title }}</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input id="fecha" [(ngModel)]="selectedMovimiento.fecha" name="fecha" required type="date" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="tipoMovimiento">Tipo de Movimiento:</label>
+                    <select id="tipoMovimiento" [(ngModel)]="selectedMovimiento.tipoMovimiento" name="tipoMovimiento" required class="input-field">
+                        <option value="Ahorros">Ahorros</option>
+                        <option value="Corriente">Corriente</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="valor">Valor:</label>
+                    <input id="valor" [(ngModel)]="selectedMovimiento.valor" name="valor" required type="number" class="input-field">        
+                </div>
+                <div class="form-group">
+                    <label for="saldo">Saldo:</label>
+                    <input id="saldo" [(ngModel)]="selectedMovimiento.saldo" name="saldo" required type="number" class="input-field">
+                </div>
+            </div>
+           
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <input id="estado" [(ngModel)]="selectedMovimiento.estado" name="estado" type="checkbox" class="checkbox-field">
+                </div>
+                <div class="form-group">
+                    <label for="cuenta">Cuenta:</label>
+                    <select id="cuenta" [(ngModel)]="selectedCuenta" name="cuenta" required class="input-field">
+                        <option *ngFor="let cuenta of listaCuentas" [ngValue]="cuenta">{{ cuenta.numeroCuenta }} - {{cuenta.cliente?.nombre}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="container-options">
+                <button type="button" (click)="closeModalMovimiento()" class="button-s">Cancelar</button>
+                <button type="submit" class="button-p">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal" *ngIf="isShowModalDeleted">
+    <div class="modal-content">
+        <h3 class="title">¿Estás seguro de eliminar la movimiento {{ selectedMovimiento.fecha }}?</h3>
         <hr class="separator">
         <div class="container-options">
-            <button (click)="closeModalCliente()" class="button-s">Cancelar</button>
-            <button (click)="confirmDeleteCliente()" class="button-p">Confirmar</button>
+            <button (click)="closeModalDelete()" class="button-s">Cancelar</button>
+            <button (click)="confirmDeleteMovimiento()" class="button-p">Confirmar</button>
         </div>
     </div>
-</div> -->
+</div>

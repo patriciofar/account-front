@@ -19,4 +19,18 @@ constructor(private http: HttpClient) { }
     });
   }
 
+  
+  createCuenta(cuenta: any) {
+    return this.http.post(environment.apiUrl + '/save-cuenta', cuenta).toPromise();
+  }
+
+  updateCuenta(cuenta: any) {
+    return this.http.put(environment.apiUrl + '/update-cuenta/' + cuenta.cuentaId, cuenta).toPromise();
+  }
+
+
+  deleteCuenta(cuentaId: any) {
+    return this.http.delete(environment.apiUrl + '/delete-cuenta/' + cuentaId).toPromise();
+  }
+
 }

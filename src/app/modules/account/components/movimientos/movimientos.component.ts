@@ -87,6 +87,7 @@ export class MovimientosComponent {
         console.log('Movimiento actualizado', response);
         this.isShowModal = false;
         this.getAllMovimientos();
+        this.getAllCuentas();
       }).catch((error) => {
         console.error('Error al actualizar movimiento', error);
       });
@@ -95,6 +96,7 @@ export class MovimientosComponent {
         console.log('Movimiento creado', response);
         this.isShowModal = false;
         this.getAllMovimientos();
+        this.getAllCuentas();
       }).catch((error) => {
         console.error('Error al crear movimiento', error);
       });
